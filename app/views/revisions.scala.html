@@ -1,4 +1,6 @@
-@(revs: Array[String])
+@(revs: Array[(String, Long)])
+
+@import java.util.Date
 
 @main("revisions") {
 	<div class="container-fluid">
@@ -6,11 +8,13 @@
   			<div class="col-sm-12">
 				<h1>Revisions</h1>
 				@if(revs.size > 0) {
-					<ul>
-			    	@for(rev <- revs) {
-			    		<li><a href="@routes.Screenshots.list(rev)">@rev</a></li>
+					<table>
+			    	@for((rev, date) <- revs) {
+			    		<tr>
+			    			<td><a href="@routes.Screenshots.list(rev)">@rev - @{new Date(date).format("yyyy-MM-dd")}</td>
+			    		</tr>
 			    	}
-			    	</ul>
+			    	</table>
 		    	} else {
 		    		No revision
 			    }

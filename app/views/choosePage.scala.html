@@ -27,9 +27,9 @@
 				<h4>intersection</h4>
 				@if(intersect.size > 0) {
 					<ul>
-			    	@for((screen, hashs) <- intersect) {
+			    	@for(screen <- intersect.keySet.toSeq.sorted) {
 			    		<li>
-			    			@if(!hashs._1.equals(hashs._2)) {
+			    			@if(!intersect(screen)._1.equals(intersect(screen)._2)) {
 			    				<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 			    			}
 			    			<a href="@routes.Compare.diff(revA, revB, screen)">@screen</a>

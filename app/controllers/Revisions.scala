@@ -18,7 +18,7 @@ object Revisions extends Controller {
   	def list = Action {
 	  	val file = new File(dir)
 	  	if(file.exists)
-	    	Ok(views.html.revisions(revisionsService.list))
+	    	Ok(views.html.revisions(revisionsService.listWithDate))
 	    else
 	    	NotFound("Not found")
 	}
