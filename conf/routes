@@ -1,0 +1,35 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           				controllers.Compare.compare
+
+
+GET     /compare                       				controllers.Compare.compare
+POST    /compare                      				controllers.Compare.postRevs
+GET     /compare/:revA/with/:revB      				controllers.Compare.choosePage(revA: String, revB: String)
+GET     /compare/:revA/with/:revB/screen/:screen 	controllers.Compare.diff(revA: String, revB: String, screen: String)
+
+#------------------------------------------------------------------------------
+# DOCUMENTATIONS
+GET		/api/doc						controllers.Doc.index
+GET		/api/docs						controllers.Doc.index
+GET		/doc							controllers.Doc.index
+GET 	/docs  							controllers.Doc.index
+
+#------------------------------------------------------------------------------
+# SCREENSHOTS API
+GET		/api/screenshots/:rev/:key 		controllers.Screenshots.download(rev: String, key: String)
+POST	/api/screenshots/:rev/:key		controllers.Screenshots.upload(rev: String, key: String)
+
+#------------------------------------------------------------------------------
+# REVISIONS API
+GET		/api/revisions/:rev				controllers.Screenshots.list(rev :String)
+GET		/api/revisions 					controllers.Revisions.list
+
+
+#------------------------------------------------------------------------------
+# STATICS
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

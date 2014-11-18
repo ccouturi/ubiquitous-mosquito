@@ -1,0 +1,65 @@
+@(revA: String, revB: String, screen: String)
+
+@main("diff") {
+
+	<div class="container-fluid">
+		<div class="row">
+
+			<div class="col-sm-12 diff">
+				<h2>@screen between @revA and @revB versions</h2>
+				<div id="diff-results" style="display:none;">
+					<p class="bs-callout bs-callout-info">
+						<strong>Differences = <span id="mismatch"></span>%
+						<span id="differentdimensions" style="display:none;">And they have different dimensions.</span></strong>
+					</p>
+				</div>
+
+				<p id="thesame" style="display:none;">
+					<strong>These images are the same!</strong>
+				</p>
+
+				<div id="image-diff" class="screenshot">
+					Diff will appear here.
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6 revision">
+				<h3>@revA</h3>
+				<img class="screenshot" src="@routes.Screenshots.download(revA, screen)" />
+			</div>
+			<div class="col-sm-6 revision">
+				<h3>@revB</h3>
+				<img class="screenshot" src="@routes.Screenshots.download(revB, screen)" />
+			</div>
+		</div>
+
+		<script src="@routes.Assets.at("js/resemble.js")" type="text/javascript"></script>
+
+		<script> 
+			function onComplete(data){
+				var diffImage = new Image();
+				diffImage.src = data.getImageDataUrl();
+
+				$('#image-diff').html(diffImage);
+
+				if(data.misMatchPercentage == 0){
+					$('#thesame').show();
+					$('#diff-results').hide();
+				} else {
+					$('#mismatch').text(data.misMatchPercentage);
+					if(!data.isSameDimensions){
+						$('#differentdimensions').show();
+					} else {
+						$('#differentdimensions').hide();
+					}
+					$('#diff-results').show();
+					$('#thesame').hide();
+				}
+			}
+
+			resemble('@routes.Screenshots.download(revA, screen)').compareTo('@routes.Screenshots.download(revB, screen)').onComplete(onComplete);
+		</script>
+	</div>
+}

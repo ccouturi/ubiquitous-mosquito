@@ -1,0 +1,19 @@
+@(rev: String, screenshots: Array[String])
+
+@main("screenshots") {
+	<div class="container-fluid">
+		<div class="row">
+  			<div class="col-sm-12">
+				<h1>Screenshots</h1>
+		    	@if(screenshots.size > 0) {
+					<ul>
+			    	@for(screen <- screenshots) {
+			    		<li><a href="@routes.Screenshots.download(rev, screen)">@screen</a></li>
+			    	}
+			    	</ul>
+		    	} else {
+		    		No screenshot
+			    }
+    		</div>
+	</div>
+}

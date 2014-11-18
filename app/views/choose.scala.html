@@ -1,0 +1,27 @@
+@(revisions: Array[String])
+
+@main("diff") {
+
+	<div class="row">
+		<h2 class="col-sm-12">Choose revisions to compare:</h2>
+
+		@helper.form(action = routes.Compare.postRevs, 'role -> "form", 'class -> "col-sm-12") {
+			<div class="form-group col-sm-6">
+				<select class="form-control" id="revA" name="revA">
+					@for(rev <- revisions) {
+		    			<option>@rev</option>
+		    		}
+				</select>
+			</div>
+
+			<div class="form-group col-sm-6">
+				<select class="form-control" id="revB" name="revB">
+					@for(rev <- revisions) {
+		    			<option>@rev</option>
+		    		}
+				</select>
+			</div>
+			<button type="submit" class="btn btn-primary">Compare</button>
+			}
+	</div>
+}

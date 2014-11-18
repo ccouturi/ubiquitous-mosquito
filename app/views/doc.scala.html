@@ -1,0 +1,23 @@
+@()
+
+@main("Doc api") {
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/doc_api.css")">
+
+	<div class="container-fluid">
+		<div class="row">
+  			<div class="col-sm-12">
+				<h1>Doc api</h1>
+		    	<h2>Upload page screenshot</h2>
+		    	<p>
+			    	Upload page screenshot at
+		    		<span class="api post"><span>/api/screenshots/:revision/:page</span></span> 
+		    	</p>
+		    	<p>
+		    		example: 
+		    		<code>curl -i -X POST -H'Content-type:multipart/form-data' -F"file=@@/home/cyril/screenshot.png http://localhost:9000/api/screenshots/v1.2.3/home_page</code>
+		    	</p>
+    		</div>
+
+	</div>
+}

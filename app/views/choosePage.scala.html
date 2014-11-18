@@ -1,0 +1,60 @@
+@(intersect: Map[String, (String, String)], revA: String, pagesA: Set[String], revB: String, pagesB: Set[String])
+
+@main("diff") {
+
+	<div class="container-fluid">
+		<div class="row">
+			<h3>Choose page:</h3>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-3">
+				<h4>only in @revA</h4>
+				@if(pagesA.size > 0) {
+					<ul>
+			    	@for(screen <- pagesA) {
+			    		<li>
+			    			<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+			    			<a href="@routes.Compare.diff(revA, revB, screen)">@screen</a>
+			    		</li>
+			    	}
+			    	</ul>
+		    	} else {
+		    		No screenshot
+			    }
+			</div>
+			<div class="col-sm-6">
+				<h4>intersection</h4>
+				@if(intersect.size > 0) {
+					<ul>
+			    	@for((screen, hashs) <- intersect) {
+			    		<li>
+			    			@if(!hashs._1.equals(hashs._2)) {
+			    				<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+			    			}
+			    			<a href="@routes.Compare.diff(revA, revB, screen)">@screen</a>
+			    		</li>
+			    	}
+			    	</ul>
+		    	} else {
+		    		No screenshot
+			    }
+			</div>
+			<div class="col-sm-3">
+				<h4>only in @revB</h4>
+				@if(pagesB.size > 0) {
+					<ul>
+			    	@for(screen <- pagesB) {
+			    		<li>
+			    			<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+			    			<a href="@routes.Compare.diff(revA, revB, screen)">@screen</a>
+			    		</li>
+			    	}
+			    	</ul>
+		    	} else {
+		    		No screenshot
+			    }
+			</div>
+		</div>
+	</div>
+}
